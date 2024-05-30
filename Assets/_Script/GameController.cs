@@ -11,7 +11,8 @@ public class GameController : MonoBehaviour
     [SerializeField] static int width = 8; 
     [SerializeField] static int height = 8;
     [SerializeField]  GameObject[] Blocks;
-    //[SerializeField]  GameObject panelgame;
+    [SerializeField] GameObject UIPanelEndgame;
+    [SerializeField] GameObject UISocre;
     [SerializeField] public static Vector3 position1;
     [SerializeField] public static Vector3 position2;
     [SerializeField] public static Vector3 position3;
@@ -32,6 +33,7 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         blockmove = FindObjectOfType<BlockMove>();
+        LoadUIPanelEndgame();
     }
     void Start()
     {
@@ -67,8 +69,12 @@ public class GameController : MonoBehaviour
             b();
         }
     }
+    private void LoadUIPanelEndgame()
+    {
+        if (UIPanelEndgame == null) Debug.LogWarning("UIPanelEndgame of scrpit UI_menager NULL");
+        if (UISocre == null) Debug.LogWarning("UISocre of scrpit UI_menager NULL");
+    }
 
-    
     public bool a()
     {
         int count = 0;
@@ -87,10 +93,14 @@ public class GameController : MonoBehaviour
         if (a() == true)
         {  
             Debug.Log("end gamem sau moiw");
-           // panelgame.SetActive(true);
+            Invoke("ShowPanelEndgame", 3f);
         }
     }
-
+    private void ShowPanelEndgame()
+    {
+        UIPanelEndgame.gameObject.SetActive(true);
+        UISocre.gameObject.SetActive(false);
+    }
     public void StartGame()
     {
         Debug.Log("da bawts dau game");
